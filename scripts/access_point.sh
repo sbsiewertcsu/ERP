@@ -5,6 +5,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+
 echo "Setting up Raspberry Shake for Access Point Mode!"
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 apt-get update -y
@@ -22,6 +24,8 @@ mv /etc/systemd/system/multi-user.target.wants/hostapd.service /etc/systemd/syst
 mv /etc/network/interfaces /etc/network/interfaces.old
 mv /var/run/dnsmasq/resolv_dnsmasq.conf /var/run/dnsmasq/resolv_dnsmasq.conf.old
 mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.old
+
+cd "$parent_path"
 
 cp ../config/dnsmasq.conf /etc/
 cp ../config/hostapd.conf /etc/hostapd/
