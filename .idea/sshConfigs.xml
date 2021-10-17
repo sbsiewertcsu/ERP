@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="rs.local" id="de7a6f55-53d6-4341-988a-d93e5112a7e6" port="22" nameFormat="DESCRIPTIVE" username="myshake" />
+    </configs>
+  </component>
+</project>

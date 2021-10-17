@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="bcc17774-9b3c-45c9-86ed-f03d0efe3b4c" name="rshake" url="rs.local">
+        <fileTransfer rootFolder="/home/myshake" accessType="SFTP" host="rs.local" port="22" sshConfigId="de7a6f55-53d6-4341-988a-d93e5112a7e6" sshConfig="myshake@rs.local:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" muteSftpMessages="true" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

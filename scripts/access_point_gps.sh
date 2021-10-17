@@ -55,7 +55,7 @@ cp ../config/resolv_dnsmasq.conf /var/run/dnsmasq/
 systemctl enable hostapd.service
 systemctl start hostapd
 echo " echo 'nameserver 8.8.8.8' >> /etc/resolv.conf" >> ~/.bashrc
-cronjob="0 7 * * * sudo /usr/sbin/service hostapd start"
+cronjob="@reboot sudo /usr/sbin/service hostapd start"
 (crontab -u root -l; echo "$cronjob" ) | crontab -u root -
 
 echo "Setting up Raspberry Pi to acquire time from GPS"
