@@ -7,20 +7,26 @@ import numpy as np
 
 
 class Trigger(EasySeedLinkClient):
-    def __init__(self, server_url):
+    def __init__(self, server_url='127.0.0.1:18000', filter_freq=5, sta=2., lta=8.,
+                 trig_on=2.5, trig_off=1.0):
         super().__init__(server_url)
         self.buffer = deque(maxlen=15)
         self.on_off = []
         self.net_trace = Trace()
         self.itertrace = None
+        self.filter_freq = filter_freq
+        self.sta = sta
+        self.lta = lta
+        self.thresh1 = trig_on
+        self.thresh2 = trig_off
 
     def run_trigger(self):
         self.adjust_buffer()
         try:
-            self.net_trace.filter("highpass", freq=5)
+            self.net_trace.filter("highpass", freq=self.filter_freq)
             df = self.net_trace.stats.sampling_rate
-            cft = recursive_sta_lta(self.net_trace.data, int(2. * df), int(8. * df))
-            self.on_off = trigger_onset(cft, 2.5, 1.0)
+            cft = recursive_sta_lta(self.net_trace.data, int(self.sta * df), int(self.lta * df))
+            self.on_off = trigger_onset(cft, self.thresh1, self.thresh2)
             print("Trigger_Onset: ", str(self.on_off), len(self.on_off))
             if len(self.on_off) > 0:
                 print("Event Detected")

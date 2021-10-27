@@ -2,7 +2,7 @@
 from trigger import Trigger
 
 def main():
-    client = Trigger('10.0.0.103:18000')
+    client = Trigger(server_url='192.168.5.1:18000')
     streams_xml = client.get_info('STREAMS')
     print(streams_xml)
 
