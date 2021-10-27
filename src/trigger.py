@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 from obspy.clients.seedlink.easyseedlink import EasySeedLinkClient
-from obspy.signal.trigger import plot_trigger, recursive_sta_lta, trigger_onset
+from obspy.core.trace import Trace
+from obspy.signal.trigger import recursive_sta_lta, trigger_onset
 from collections import deque
+import numpy as np
 
 
 class Trigger(EasySeedLinkClient):
@@ -9,27 +11,24 @@ class Trigger(EasySeedLinkClient):
         super().__init__(server_url)
         self.buffer = deque(maxlen=15)
         self.on_off = []
+        self.net_trace = Trace()
+        self.itertrace = None
 
     def run_trigger(self):
-        net_trace = self.buffer[0]
-        itertrace = iter(self.buffer)
-        next(itertrace)
-        for i in itertrace:
-            net_trace += i
-            try:
-                net_trace.filter("highpass", freq=10)
-                df = net_trace.stats.sampling_rate
-                cft = recursive_sta_lta(net_trace.data, int(2. * df), int(8. * df))
-                self.on_off = trigger_onset(cft, 2.5, 1.0)
-                print("CFT: " + str(cft))
-                print("Trigger_Onset: ", str(self.on_off))
-                if len(self.on_off) > 0:
-                    self.on_off[:] = []
-                    print("trigger after ------>", str(self.on_off))
-                else:
-                    pass
-            except:
-                print("Error")
+        self.adjust_buffer()
+        try:
+            self.net_trace.filter("highpass", freq=5)
+            df = self.net_trace.stats.sampling_rate
+            cft = recursive_sta_lta(self.net_trace.data, int(2. * df), int(8. * df))
+            self.on_off = trigger_onset(cft, 2.5, 1.0)
+            print("Trigger_Onset: ", str(self.on_off), len(self.on_off))
+            if len(self.on_off) > 0:
+                print("Event Detected")
+                self.flush_buffers()
+            else:
+                pass
+        except Exception as e:
+            print("Error:", e)
 
     def on_data(self, trace):
         self.get_data(trace)
@@ -43,4 +42,19 @@ class Trigger(EasySeedLinkClient):
 
     def has_data(self):
         return len(self.buffer) > 10
+
+    def adjust_buffer(self):
+        self.net_trace = self.buffer[0]
+        self.itertrace = iter(self.buffer)
+        next(self.itertrace)
+        for i in self.itertrace:
+            self.net_trace += i
+
+    def flush_buffers(self):
+        self.buffer.clear()
+        self.on_off = np.empty(self.on_off.shape)
+        self.net_trace = Trace()
+
+
+
 
