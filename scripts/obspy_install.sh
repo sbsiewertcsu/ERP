@@ -8,13 +8,18 @@ fi
 echo "Install Obspy.."
 
 release_codename=$(lsb_release -cs)
-echo "$release_codename"
 
-deb http://deb.obspy.org $release_codename main > /etc/apt/sources.list
-wget --quiet -O - https://raw.githubusercontent.com/obspy/obspy/master/misc/debian/public.key | sudo apt-key add -
+mv /etc/apt/sources.list /etc/apt/sources.list.old
+echo "deb http://archive.raspbian.org/raspbian $release_codename main contrib non-free" >> /etc/apt/sources.list
+echo "deb-src http://archive.raspbian.org/raspbian $release_codename main contrib non-free" >> /etc/apt/sources.list
 
 apt-get update -y
+apt-get install python3-pip -y
 
-apt-get install python-obspy python3-obspy -y
+pip3 install obspy
+
+apt-get install libatlas-base-dev -y
+apt-get install libxslt-dev -y
+apt-get install libopenjp2-7 -y
 
 echo "Done!"
