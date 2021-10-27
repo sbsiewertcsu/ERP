@@ -29,7 +29,7 @@ class Trigger(EasySeedLinkClient):
             self.on_off = trigger_onset(cft, self.thresh1, self.thresh2)
             print("Trigger_Onset: ", str(self.on_off), len(self.on_off))
             if len(self.on_off) > 0:
-                print("Event Detected")
+                self.handle_event()
                 self.flush_buffers()
             else:
                 pass
@@ -61,6 +61,8 @@ class Trigger(EasySeedLinkClient):
         self.on_off = np.empty(self.on_off.shape)
         self.net_trace = Trace()
 
+    def handle_event(self):
+        print("Event Detected")
 
 
 
