@@ -3,6 +3,7 @@ from obspy.clients.seedlink.easyseedlink import EasySeedLinkClient
 from obspy.core.trace import Trace
 from obspy.signal.trigger import recursive_sta_lta, trigger_onset
 from collections import deque
+from datetime import datetime
 import numpy as np
 
 
@@ -62,7 +63,7 @@ class Trigger(EasySeedLinkClient):
         self.net_trace = Trace()
 
     def handle_event(self):
-        print("Event Detected")
+        print("Event Detected at: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
 
 
