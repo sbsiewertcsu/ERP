@@ -62,8 +62,12 @@ echo "Setting up Raspberry Pi to acquire time from GPS"
 
 apt install gpsd -y
 apt install gpsd-clients -y
+apt install chrony -y
 mv /etc/default/gpsd /etc/default/gpsd.old
+mv /etc/chrony/chrony.conf /etc/chrony/chrony.conf.old
+
 cp ../config/gpsd /etc/default/
+cp ../config/chrony.conf /etc/default/
 gpsd /dev/ttyACM0
 
 echo "Rebooting..."
