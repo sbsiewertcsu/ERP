@@ -29,9 +29,9 @@ doTraining = true;
 % images are needed to train a robust detector.
 
 %unzip cowDatasetImages.zip
-%data = load('cowDatasetGroundTruth.mat');
-%cowDataset = data.gTruth;
-cowDataset = gTruth;
+data = load('groundcowDatasetGroundTruth.mat');
+cowDataset = data.gTruth;
+%cowDataset = gTruth;
 %% 
 % The training data is stored in a table. The first column contains the path 
 % to the image files. The remaining columns contain the ROI labels for cows. 
@@ -53,11 +53,9 @@ testData = cowDataset(shuffledIndices(idx+1:end),:);
 % during training and evaluation.
 
 imdsTrain = imageDatastore(trainingData{:,'imageFilename'});
-%bldsTrain = boxLabelDatastore(trainingData(:,'cow'));
 bldsTrain = boxLabelDatastore(trainingData(:,'Cow'));
 
 imdsTest = imageDatastore(testData{:,'imageFilename'});
-%bldsTest = boxLabelDatastore(testData(:,'cow'));
 bldsTest = boxLabelDatastore(testData(:,'Cow'));
 %% 
 % Combine image and box label datastores.
