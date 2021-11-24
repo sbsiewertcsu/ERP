@@ -31,7 +31,7 @@ doTraining = true;
 %unzip grndelephDatasetImages.zip
 data = load('groundElephantDatasetGroundTruth.mat');
 grndelephDataset = data.gTruth;
-grndelephDataset = gTruth;
+%grndelephDataset = gTruth;
 %% 
 % The training data is stored in a table. The first column contains the path 
 % to the image files. The remaining columns contain the ROI labels for grndelephs. 
