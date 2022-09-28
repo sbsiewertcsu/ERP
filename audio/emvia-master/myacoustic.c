@@ -75,6 +75,7 @@ static void closefiles();
 // Main entry point
 int main(int argc, char** argv)
 {
+  int rc;
   // Set up thread interrupt mechanism
   struct sigaction action = {0};
   action.sa_handler = intr_handler;
@@ -107,7 +108,11 @@ int main(int argc, char** argv)
 
   closefiles();
 
-  if(_poweroff) system("shutdown -h now");
+  if(_poweroff) {
+    rc=system("shutdown -h now");
+  }
+
+  printf("Sent system: shutdown -h now - got return code of %d\n", rc);
 
   return 0;
 }
