@@ -5,8 +5,8 @@ ERP software general use
 2. Enable USB devices (camera, GPS, and microphone) with Config +USB and add
 
 Motion detect
-3. sudo apt-get install libqgpsmm-dev
-4. If not on JETSON, do "sudo apt install libopencv-dev", but on JETSON, jsut use JetPack 4.6
+3. sudo apt-get install libgps-dev (sudo apt-get install libqgpsmm-dev)
+4. sudo apt install libopencv-dev, but on JETSON, jsut use JetPack 4.6
 5. sudo apt-get install gpsd
 6. cmake motion-detect/
 7. make in motion
