@@ -5,6 +5,9 @@ from obspy.signal.trigger import recursive_sta_lta, trigger_onset
 from collections import deque
 from datetime import datetime
 import numpy as np
+import logging
+
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 class Trigger(EasySeedLinkClient):
@@ -62,8 +65,9 @@ class Trigger(EasySeedLinkClient):
         self.on_off = np.empty(self.on_off.shape)
         self.net_trace = Trace()
 
-    def handle_event(self):
-        print("Event Detected at: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+    def handle_event(self, sta, lta):
+        logging.info("Event Detected with STA:%d and LTA:%d", sta, lta)
+        print("Event Detected at: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "STA:", sta, " LTA:", lta)
 
 
 
