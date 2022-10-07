@@ -1,10 +1,13 @@
 Building and installing ERP Sensor Fusion Apps on a Linux system
 
 ERP software general use
+------------------------------
 1. git clone https://github.com/sbsiewertcsu/ERP.git
-2. Enable USB devices (camera, GPS, and microphone) with Config +USB and add for VB-Linux - verify with "lsusb" and "ls /dev/video*"
+2. sudo apt-get install cmake
+3. Plug in USB and CSI/MIPI devices - verify with "lsusb" and "ls /dev/video*"
 
-R-Pi 3b+ Audio Capture Node
+
+R-Pi 3b+ Audio and Image Capture Node
 ------------------------------
 myaudio@raspberrypi:~/ERP/audio/emvia-master $ lsb_release -a
 No LSB modules are available.
@@ -25,16 +28,20 @@ Audio:
 4. make in "emvia-master"
 5. make sure USB mic and USB gps are plugged in
 
+Motion detect:
+1. sudo apt-get install libopencv-dev
+2. cmake motion-detect
+3. make
 
 
 Ubuntu 20.04 LTS PROCEDURE
 ------------------------------
+1. Enable USB devices (camera, GPS, and microphone) with Config +USB and add for VB-Linux
+
 Motion detect:
-3. sudo apt-get install libgps-dev (sudo apt-get install libqgpsmm-dev)
-4. sudo apt install libopencv-dev
-5. sudo apt-get install gpsd
-6. cmake motion-detect/
-7. make in "motion"
+1. sudo apt install libopencv-dev
+2. cmake motion-detect/
+3. make in "motion"
 
 Audio
 1. sudo apt-get install alsa-tools
