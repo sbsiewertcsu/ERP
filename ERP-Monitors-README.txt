@@ -16,6 +16,7 @@ Codename:	bullseye
 GPS:
 1. sudo apt-get install libgps-dev
 2. sudo apt-get install gpsd
+3. use "cgps" to test GPS (make sure receiver near a window or outdoors)
 
 Audio:
 1. sudo apt update
