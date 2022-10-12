@@ -7,7 +7,7 @@ from datetime import datetime
 import numpy as np
 import logging
 
-logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
+logging.basicConfig(filename='~/', filemode='w', format ='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 class Trigger(EasySeedLinkClient):
