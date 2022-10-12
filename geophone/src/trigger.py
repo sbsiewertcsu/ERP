@@ -33,7 +33,7 @@ class Trigger(EasySeedLinkClient):
             self.on_off = trigger_onset(cft, self.thresh1, self.thresh2)
             print("Trigger_Onset: ", str(self.on_off), len(self.on_off))
             if len(self.on_off) > 0:
-                self.handle_event()
+                self.handle_event(self.sta, self.lta)
                 self.flush_buffers()
             else:
                 pass
