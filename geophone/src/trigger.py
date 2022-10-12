@@ -7,7 +7,7 @@ from datetime import datetime
 import numpy as np
 import logging
 
-logging.basicConfig(filename='~/geophone.log', filemode='w', format ='%(asctime)s - %(message)s', level=logging.INFO)
+logging.basicConfig(filename='geophone.log', filemode='w', format ='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 class Trigger(EasySeedLinkClient):
