@@ -6,9 +6,10 @@ from collections import deque
 from datetime import datetime
 import numpy as np
 import logging
+import time
 
 logging.basicConfig(filename='geophone.log', filemode='w', format ='%(asctime)s - %(message)s', level=logging.INFO)
-
+logging.Formatter.converter = time.gmtime
 
 class Trigger(EasySeedLinkClient):
     def __init__(self, server_url='127.0.0.1:18000', filter_freq=5, sta=2., lta=8.,
