@@ -14,6 +14,8 @@
 #include <time.h>
 #include "gps.h"
 
+//
+
 #define DEBUG
 
 #ifndef DEBUG
@@ -72,6 +74,8 @@ static void intr_handler(int);
 static void openfiles();
 static void closefiles();
 
+
+char* findDevice();
 // Main entry point
 int main(int argc, char** argv)
 {
@@ -167,9 +171,17 @@ void* alsa_thread_entry(void* args)
   #define framesize 2 // 16 bits = 2 bytes
   #define bufsize_bytes 9600 // 48k frames/sec -> 4800 frames/100ms -> 9600 bytes/100ms
   static const uint32_t bufsize_frames = bufsize_bytes/framesize;
-  
+ 
+  char* cardNoAndDevNo=findDevice();
+  char _temp[] = {'h','w',':',cardNoAndDevNo[0],',',cardNoAndDevNo[1],'\0'} ;//changed to 2
   //where is this device coming from?
-  static const char* device = "hw:1,0";
+	// use arecord -l 
+	// to find card number and device number
+	// which is 2 and 0 below 
+	// we could add this as a command argument
+  //static const char* device = "hw:2,0";//changed to 2
+  char* device = _temp; 
+  //static const char* device = "hw:1,0";
   #define HISTORY_LEN 600 // average across 1 minute
   uint8_t history_iter = 0;
   double history_circbuf[HISTORY_LEN];
@@ -361,3 +373,39 @@ void closefiles()
   fclose(_logfile);
 }
 
+
+
+/**
+ * @file findDevice.c
+ * @brief get the audio device 
+ * @author Jiqing Yang <jyang47@mail.csuchico> ^v^
+ * @version 0.0.1 dev
+ * @date 2022-10-28
+ */
+
+char* findDevice(){
+	FILE *fp;
+	fp=popen("arecord -l","r");
+	char buffer[1024]={0};
+	// we only need the second line
+	// so we just read the second
+	// magic
+	fgets(buffer,1024,fp);
+	fgets(buffer,1024,fp);
+  
+  char* res;
+	res = malloc(2);
+  
+	// magic numbers!
+	// There arn't some function like regmatch
+	// so it the time for magic numbers
+	// to find out the device number 
+	// and card number
+	res[0]=buffer[5];//device number
+	res[1]=buffer[46];//card number
+	
+  printf("%c %c",res[0],res[1]);
+
+	pclose(fp);
+  return res;
+}
