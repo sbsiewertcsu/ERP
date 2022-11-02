@@ -6,9 +6,10 @@ from collections import deque
 from datetime import datetime
 import numpy as np
 import logging
+import time
 
-logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
-
+logging.basicConfig(filename='geophone.log', filemode='w', format ='%(asctime)s - %(message)s', level=logging.INFO)
+logging.Formatter.converter = time.gmtime
 
 class Trigger(EasySeedLinkClient):
     def __init__(self, server_url='127.0.0.1:18000', filter_freq=5, sta=2., lta=8.,
@@ -33,7 +34,7 @@ class Trigger(EasySeedLinkClient):
             self.on_off = trigger_onset(cft, self.thresh1, self.thresh2)
             print("Trigger_Onset: ", str(self.on_off), len(self.on_off))
             if len(self.on_off) > 0:
-                self.handle_event()
+                self.handle_event(self.sta, self.lta)
                 self.flush_buffers()
             else:
                 pass
