@@ -1,0 +1,22 @@
+.snapshot-li {
+    color: #E4E3E3;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.snapshot-img {
+    border: 1px solid #E4E3E3;
+}
+
+#data-container {
+    position: relative;
+    margin: auto;
+    width: 50%;
+    margin-top: 25px;
+    /* border-bottom: none; */
+}
+
+#snapshot-contents {
+    margin-left: -0.9375rem;
+    margin-right: -0.9375rem;
+}

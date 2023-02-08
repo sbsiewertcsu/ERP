@@ -1,0 +1,45 @@
+.acoustic-li {
+    position: relative;
+    color: #E4E3E3;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.audio-player {
+    width: 100%;
+}
+
+.acoustic-log-button-container {
+    display: inline-block;
+    margin: 0;
+    width: 100%;
+}
+
+.acoustic-log-button {
+    width: calc(50% - 2.5px);
+    margin-bottom: 5px;
+}
+
+#data-container {
+    position: relative;
+    margin: auto;
+    width: 50%;
+    margin-top: 25px;
+    /* border-bottom: none; */
+}
+
+#acoustic-contents {
+    margin-left: -0.9375rem;
+    margin-right: -0.9375rem;
+}
+
+#logfile-contents {
+    background-color: #FFF;
+    color: #000;
+
+    border-radius: 5px;
+    padding: 5px;
+    width: 25%;
+
+    height: max(25%, auto);
+}

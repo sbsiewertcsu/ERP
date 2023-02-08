@@ -1,0 +1,31 @@
+.top-line {
+    width: 100%;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.log-title-button {
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+
+.title-container {
+    position: relative;
+    margin: auto;
+    margin-top: 25px;
+    width: 50%;
+}
+
+.sensor-log-title {
+    margin: auto;
+    margin-bottom: 5px;
+    padding: 10px 10px 0px;
+    width: 100%;
+    font-size: 30px;
+    text-align: center;
+}
+
+#nav-button-prev {
+    top: 15px;
+}

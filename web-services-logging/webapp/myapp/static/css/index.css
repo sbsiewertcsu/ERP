@@ -1,0 +1,72 @@
+hr.log-line {
+    background-color: #6998AB;
+    margin: 0;
+}
+
+ul.log-list {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin-top: 50px;
+}
+
+/* bruh */
+a.log-button {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    font-weight: bold;
+    height: 100%;
+    width: 100%;
+    padding-left: 10px;
+    background-color: rgba(177, 208, 224, 0);
+    color: #E4E3E3;
+}
+
+a.log-button:hover {
+    /* opacity: 0.5; */
+    background-color: rgba(177, 208, 224, 0.5);
+}
+
+a.log-button:link {
+    color: #E4E3E3;
+    
+}
+
+a.log-button:visited {
+    color: #ADEBBE;
+}
+
+a.log-button:active {
+    color: #EEF3AD;
+}
+
+.log {
+    position: relative;
+}
+
+.log-title {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+#log-group {
+    position: relative;
+    margin: auto;
+    width: 50%;
+    height: 75vh;
+    margin-top: 2.5%;
+}
+
+#page-button-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: inline;
+    margin-top: 10px;
+}
