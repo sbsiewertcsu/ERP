@@ -1,0 +1,26 @@
+#adapted from example in docker documentation
+version: '3.7'
+
+services:
+  web:
+    build: .
+    volumes:
+       - .:/code
+    working_dir: /code/webapp
+    expose:
+      - 8000
+    command: python /code/webapp/manage.py runserver 0.0.0.0:8000
+
+  nginx:
+    build: ./nginx/
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+       - ./webapp/myapp/static/:/static
+       - ./webapp/media/:/media
+       - ./nginx/sites-enabled/default.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - web:web
+    depends_on:
+      - web
