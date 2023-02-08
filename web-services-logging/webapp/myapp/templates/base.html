@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'foundation/css/foundation.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block title %}{% endblock %}
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+    <div id="overlay">
+      {% block overlay %}{% endblock %}
+    </div>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <a href="/" id="tb-title">ERP Sensor Network</a>
+        </div>
+        <div class="top-bar-right">
+          <ul class="menu">
+          {% if user.is_authenticated %}
+            <li id="tb-username">Hi, {{ user.username }}</li>
+            <li class="menu-button" id="saved-logs-button"><a href="/saved/{{ user.username }}/" class="button menu-list-button">Saved Logs</a></li>
+            <li class="menu-button"><a href="/logout/" class="secondary button menu-list-button">Logout</a></li>
+          {% else %}
+            <li id="tb-username">Login to save logs</li>
+            <li class="menu-button"><a href="/login/" class="button menu-list-button">Login</a></li>
+          {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'js/overlay.js' %}"></script>
+    {% block content %}{% endblock %}
+  </body>
+</html>

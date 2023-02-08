@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>{{ title }}</title>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block content %}
+<h3 id="title">{{ headerTitle }}</h3>
+<div id="log-group">
+  <form action = "{{ postURL }}" method="post">
+    {% csrf_token %}
+    {{ searchForm.search }}
+  </form>
+  <ul class="grid-container grid-y log-list no-bullet">
+    {% for entry in logs %}
+    <li class="cell small-4 medium-8 large-1">
+      <a href="/log/{{ entry.uid }}" class="log-button">{{ entry.timestamp|date:'m-d-y H:i:s' }}</a>
+      <hr class="log-line"></li>
+    </li>
+    {% endfor %}
+    <div id="page-button-container">
+      {% if page > 1 %}
+      <a href="{{ postURL }}page/{{ page|add:'-1' }}/" class="nav-button left">&larr;</a>
+      {% endif %}
+      {% if page < pageLimit %}
+      <a href="{{ postURL }}page/{{ page|add:'1' }}/" class="nav-button right">&rarr;</a>
+      {% endif %}
+    </div>
+    
+  </ul>
+</div>
+{% endblock %}
+</html>

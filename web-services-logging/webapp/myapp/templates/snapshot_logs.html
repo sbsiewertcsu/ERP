@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>{{ title }}</title>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/logs_share.css' %}">
+<link rel="stylesheet" href="{% static 'css/snapshot_logs.css' %}">
+{% endblock %}
+{% block content %}
+<div class="title-container">
+    <h3 class="sensor-log-title">Snapshot Logs</h3>
+    <a href="javascript:history.back()" class="nav-button left" id="nav-button-prev">&larr;</a>
+    {% if numSnapshots > 0 %}
+    <button class="button log-title-button">Download All</button>
+    {% endif %}
+    <hr class="top-line">
+</div>
+<div id="data-container">
+    <div class="grid-container full">
+    <ul class="grid-x grid-margin-x large-up-4 no-bullet" id="snapshot-contents">
+        {% for snapshot in snapshots %}
+        <li class="cell snapshot-li">
+            <img src="{{ snapshot.picture.url }}" alt="img" class="snapshot-img">
+            {{ snapshot.timestamp }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</div>
+{% endblock %}
+</html>

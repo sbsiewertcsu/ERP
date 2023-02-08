@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>{{ log.timestamp }}</title>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/logs_share.css' %}">
+<link rel="stylesheet" href="{% static 'css/log.css' %}">
+{% endblock %}
+{% block content %}
+<div class="title-container">
+    <h3 id="log-title">Log: {{ timestamp }}</h3>
+    {% if user.is_authenticated %}
+    <form action="/saved/{{ user.username }}/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="savedLog" value="{{ logGroup.uid }}">
+        <input type="submit" value="Save Log" class="success button log-title-button">
+    </form>
+    {% endif %}
+    <hr class="top-line">
+</div>
+<div id="log-container">
+    <ul class="grid-x grid-margin-x file-list">
+        <div class="cell large-2">
+            <div class="file-button">
+                <img src="{% static 'images/camera_file.png' %}" class="file-image">
+                <a href = "/log/{{ logGroup.uid }}/snapshots/" class="file-link"></a>
+            </div>
+            <span class="file-title">Snapshot</span>
+        </div>
+        <div class="cell large-2">
+            <div class="file-button">
+                <img src="{% static 'images/audio_file.png' %}" class="file-image">
+                <a href = "/log/{{ logGroup.uid }}/acoustic/" class="file-link"></a>
+            </div>
+            <span class="file-title">Acoustic</span>
+        </div>
+        <div class="cell large-2">
+            <div class="file-button">
+                <img src="{% static 'images/seismic_file.png' %}" class="file-image">
+                <a href = "/log/{{ logGroup.uid }}/geophone/" class="file-link"></a>
+            </div>
+            <span class="file-title">Geophone</span>
+        </div>
+    </ul>
+</div>
+{% endblock %}
+</html>

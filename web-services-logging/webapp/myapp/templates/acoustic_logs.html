@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>{{ title }}</title>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/logs_share.css' %}">
+<link rel="stylesheet" href="{% static 'css/acoustic_logs.css' %}">
+{% endblock %}
+{% block overlay %}
+<p id="logfile-contents"></p>
+{% endblock %}
+{% block content %}
+<div class="title-container">
+    <h3 class="sensor-log-title">Acoustic Logs</h3>
+    <a href="javascript:history.back()" class="nav-button left" id="nav-button-prev">&larr;</a>
+    {% if numSnapshots > 0 %}
+    <button class="button log-title-button">Download All</button>
+    {% endif %}
+    <hr class="top-line">
+</div>
+<div id="data-container">
+    <div class="grid-container full">
+    <ul class="grid-x grid-margin-x large-up-3 no-bullet" id="acoustic-contents">
+        {% for acousticLog in acousticLogs %}
+        <li class="cell acoustic-li">
+            <div class="acoustic-log-button-container">
+                <button class="button success acoustic-log-button view-button" id="{{ acousticLog.logfileBasename }}">View Logfile</button>
+                <button class="button acoustic-log-button">Download</button>
+            </div>
+            <audio class="audio-player" controls>
+                <source src="{{ acousticLog.recording.url }}" type="audio/wav">
+                Your browser does not support the audio tag.
+            </audio>
+            {{ acousticLog.timestamp }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</div>
+{{ logfileJSON|json_script:"logfile-data" }}
+<script src="{% static 'js/acoustic.js' %}"></script>
+{% endblock %}
+</html>

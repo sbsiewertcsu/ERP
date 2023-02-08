@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>{{ title }}</title>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/logs_share.css' %}">
+<link rel="stylesheet" href="{% static 'css/geophone_log.css' %}">
+{% endblock %}
+{% block content %}
+<div class="title-container">
+    <h3 class="sensor-log-title">Geophone Logfile Preview</h3>
+    <a href="javascript:history.back()" class="nav-button left" id="nav-button-prev">&larr;</a>
+    {% if geophoneLogs %}
+    <a href = "{{ logfileURL }}" class="button log-title-button" download>Download</a>
+    {% endif %}
+    <!-- <hr class="top-line"> -->
+</div>
+<div id="data-container">
+    <ul class="no-bullet" id="log-contents">
+        {% for log in geophoneLogs %}
+        <li class="geophone-li">
+            {{ log }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<p id="notice">{{ notice }}</p>
+{% endblock %}
+</html>
