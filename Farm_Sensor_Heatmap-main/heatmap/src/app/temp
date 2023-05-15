@@ -1,0 +1,63 @@
+import {Component, OnInit} from '@angular/core';
+import * as leaflet from 'leaflet';
+import 'heatmap.js';
+import {heatData} from "./data";
+
+declare const HeatmapOverlay: any;
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit {
+  private map: any;
+
+  ngOnInit(): void {
+    this.initMap();
+  }
+
+  private initMap(): void {
+    // Initialising map with center point by using the coordinates
+    // Setting initial zoom to 3
+    this.map = leaflet.map('map', {
+      center: [ 39.8282, -98.5795 ],
+      zoom: 3
+    });
+
+    // Initialising tiles to the map by using openstreetmap
+    // Setting zoom levels
+    const tiles = leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      minZoom: 3,
+      attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    // Adding tiles to the map
+    tiles.addTo(this.map);
+
+    // Setting up heat layer config
+    const heatLayerConfig = {
+      "radius": 5,
+      "maxOpacity": .8,
+      "scaleRadius": true,
+      // property below is responsible for colorization of heat layer
+      "useLocalExtrema": true,
+      // here we need to assign property value which represent lat in our data
+      latField: 'lat',
+      // here we need to assign property value which represent lng in our data
+      lngField: 'lng',
+      // here we need to assign property value which represent valueField in our data
+      valueField: 'count'
+    };
+
+    // Initialising heat layer and passing config
+    const heatmapLayer = new HeatmapOverlay(heatLayerConfig);
+
+    //Passing data to a layer
+    heatmapLayer.setData(heatData);
+
+    //Adding heat layer to a map
+    heatmapLayer.addTo(this.map);
+  }
+}
