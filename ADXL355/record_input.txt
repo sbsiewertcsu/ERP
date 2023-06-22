@@ -1,0 +1,4 @@
+/home/pi/Documents/Accelerometers/accel_data_02.csv
+20
+250.000000
+2
